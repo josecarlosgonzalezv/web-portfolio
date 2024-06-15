@@ -48,7 +48,9 @@ jobs:
         run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
       - name: Create release tag
         run: |
-          git tag -a "v${{ steps.get_version.outputs.VERSION }}" -m "Release version ${{ steps.get_version.outputs.VERSION }}"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ steps.get_version.outputs.VERSION }}" -m "Portfolio v${{ steps.get_version.outputs.VERSION }}"
           git push origin "v${{ steps.get_version.outputs.VERSION }}"
       - name: Create Release
         id: create_release
