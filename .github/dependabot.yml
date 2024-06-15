@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Europe/Madrid"
+    versioning-strategy: "increase-if-necessary"
+    reviewers:
+      - "josecarlosgonzalezv"
+    ignore:
+      # The latest version 2.0.21 is incompatible with the latest version of the vite-plugin-checker dependency.
+      - dependency-name: "vue-tsc"
+        versions: [">=1.8.27"]
