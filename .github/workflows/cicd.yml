@@ -39,4 +39,7 @@ jobs:
       - name: Build the page
         run: npm run build
       - name: Deploy to GitHub Pages
-        run: npm run deploy
+        run: |
+          git config --global user.email "josecarlos.gonzalezvillegas1@lumen.com"
+          git config --global user.name "josecarlosgonzalezv"
+          npm run deploy
