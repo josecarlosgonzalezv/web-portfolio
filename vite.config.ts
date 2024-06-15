@@ -21,17 +21,14 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  base: 'https://josecarlosgonzalezv.github.io/web-portfolio/',
   build: {
     target: 'esnext',
     minify: true,
     sourcemap: true,
     copyPublicDir: false,
     rollupOptions: {
-      external: ['vue'],
       output: {
-        globals: {
-          vue: 'Vue',
-        },
         assetFileNames: 'assets/[name][extname]',
         chunkFileNames: 'chunks/[name][extname]',
       },
