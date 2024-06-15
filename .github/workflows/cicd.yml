@@ -24,6 +24,7 @@ jobs:
           npm ci
           npm run build
       - name: Get package.json version
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: get_version
         run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
       - name: Check if release exists
