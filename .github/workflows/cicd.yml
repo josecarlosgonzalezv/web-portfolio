@@ -47,6 +47,8 @@ jobs:
         id: get_version
         run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
       - name: Create release tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -55,6 +57,8 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           tag_name: v${{ steps.get_version.outputs.VERSION }}
           release_name: Release v${{ steps.get_version.outputs.VERSION }}
