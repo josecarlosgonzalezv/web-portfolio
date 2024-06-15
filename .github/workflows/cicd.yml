@@ -1,0 +1,69 @@
+name: Portfolio CI/CD
+run-name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+  build-and-deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Get package.json version
+        id: get_version
+        run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy to GH Page
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+      - name: Create release tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch --tags
+          TAG_NAME="v${{ steps.get_version.outputs.VERSION }}"
+          if git rev-parse -q --verify "refs/tags/${TAG_NAME}"; then
+            echo "Tag ${TAG_NAME} already exists. Skipping tag creation."
+          else
+            git tag -a "${TAG_NAME}" -m "Portfolio ${TAG_NAME}"
+            git push origin "${TAG_NAME}"
+          fi
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          release_name: Portfolio v${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
