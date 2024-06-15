@@ -10,40 +10,37 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  portfolio-build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build
-  build-and-deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
       - name: Get package.json version
         id: get_version
         run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
-      - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build
-      - name: Deploy to GH Page
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Check if release exists
+        id: check_release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/github-script@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-      - name: Create release tag
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          script: |
+            const releases = await github.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const existingRelease = releases.data.find(r => r.tag_name === `v${{ steps.get_version.outputs.VERSION }}`);
+            return !!existingRelease;
+      - name: Create release tag and release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check_release.outputs.result != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         run: |
@@ -56,8 +53,10 @@ jobs:
           else
             git tag -a "${TAG_NAME}" -m "Portfolio ${TAG_NAME}"
             git push origin "${TAG_NAME}"
+            echo "::set-output name=release_created::true"
           fi
       - name: Create Release
+        if: steps.check_release.outputs.result != 'true' && steps.create_release.outputs.release_created == 'true'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -67,3 +66,10 @@ jobs:
           release_name: Portfolio v${{ steps.get_version.outputs.VERSION }}
           draft: false
           prerelease: false
+      - name: Deploy to GH Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.create_release.outputs.release_created == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
