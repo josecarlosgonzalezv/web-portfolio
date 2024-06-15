@@ -44,26 +44,25 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
       - name: Get package.json version
-        id: get_version
-        run: echo "::set-output name=VERSION::$(node -p -e "require('./package.json').version")"
-      - name: Create release tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        run: echo "VERSION=$(node -p -e \"require('./package.json').version\")" >> $GITHUB_ENV
+      - name: Set git config
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "v${{ steps.get_version.outputs.VERSION }}" -m "Portfolio v${{ steps.get_version.outputs.VERSION }}"
-          git push origin "v${{ steps.get_version.outputs.VERSION }}"
+          git config --global user.email "josecarlos.gonzalezvillegas1@lumen.com"
+          git config --global user.name "josecarlosgonzalezv"
+      - name: Create release tag
+        run: |
+          git tag -a "v${{ env.VERSIONN }}" -m "Portfolio v${{ env.VERSIONN }}"
+          git push origin "v${{ env.VERSIONN }}"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          tag_name: v${{ steps.get_version.outputs.VERSION }}
-          release_name: Release v${{ steps.get_version.outputs.VERSION }}
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
           body: |
-            Release notes for version ${{ steps.get_version.outputs.VERSION }}.
+            Release notes for version ${{ env.VERSION }}.
           draft: false
           prerelease: false
       - name: Upload Release Asset
