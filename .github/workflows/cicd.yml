@@ -68,6 +68,7 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.npm_pack.outputs.package }}
           asset_name: $(basename ${{ steps.npm_pack.outputs.package }})
