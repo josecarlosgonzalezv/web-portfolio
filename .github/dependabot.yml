@@ -10,7 +10,7 @@ updates:
     versioning-strategy: "increase-if-necessary"
     reviewers:
       - "josecarlosgonzalezv"
-    ignore:
-      # The latest version 2.0.21 is incompatible with the latest version of the vite-plugin-checker dependency.
-      - dependency-name: "vue-tsc"
-        versions: [">=1.8.27"]
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
