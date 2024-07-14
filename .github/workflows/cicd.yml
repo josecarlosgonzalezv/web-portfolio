@@ -37,7 +37,6 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
           script: |
             const releases = await github.repos.listReleases({
               owner: context.repo.owner,
@@ -45,11 +44,12 @@ jobs:
             });
             const existingRelease = releases.data.find(r => r.tag_name === `v${{ steps.get_version.outputs.VERSION }}`);
             return !!existingRelease;
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release tag and release
         id: create_release
         if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check_release.outputs.result != 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -66,7 +66,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && steps.create_release.outputs.release_created == 'true'
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.get_version.outputs.VERSION }}
           release_name: Portfolio v${{ steps.get_version.outputs.VERSION }}
