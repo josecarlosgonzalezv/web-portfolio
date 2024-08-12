@@ -18,3 +18,6 @@ pnpm-debug.log*
 
 # Typescript cache
 tsconfig.tsbuildinfo
+
+# Env variables
+.env
