@@ -1,22 +1,14 @@
 import { defineStore } from 'pinia';
-import { Lang, WebState } from '@/store/types';
+import { WebState } from '@/store/types';
 
 export const useWebStore = defineStore('WebStore', {
   state: (): WebState => ({
-    theme: 'dark',
-    lang: {
-      source: 'en',
-      target: 'en-GB',
-    },
+    theme: 'light',
   }),
 
   actions: {
     updateTheme(theme: string) {
       this.theme = theme;
-    },
-
-    updateLang(lang: Lang) {
-      this.lang = lang;
     },
   },
 });
