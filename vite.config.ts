@@ -21,7 +21,7 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  base: 'https://josecarlosgonzalezv.github.io/web-portfolio/',
+  base: process.env.NODE_ENV === 'production' ? '/web-portfolio/' : '/',
   build: {
     target: 'esnext',
     minify: true,
