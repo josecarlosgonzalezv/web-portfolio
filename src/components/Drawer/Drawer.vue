@@ -1,14 +1,29 @@
 <template>
   <v-navigation-drawer border class="mt-drawer" sticky rail permanent :elevation="4">
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-linkedin" value="linkedin"></v-list-item>
-      <v-list-item prepend-icon="mdi-youtube" value="youtube"></v-list-item>
-      <v-list-item prepend-icon="mdi-github" value="github"></v-list-item>
+      <v-list-item
+        v-for="(media, idx) in medias"
+        :prepend-icon="`mdi-${media}`"
+        :value="media"
+        :key="idx"
+        @click="redirect(media)"
+      ></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const medias = ['linkedin', 'github'];
+
+const redirect = (value: string) => {
+  const urls: { [key: string]: string } = {
+    linkedin: 'https://www.linkedin.com/in/josegnzl/',
+    github: 'https://github.com/josecarlosgonzalezv',
+  };
+
+  window.open(urls[value], '_blank');
+};
+</script>
 <style scoped>
 .mt-drawer {
   margin-top: 15rem;

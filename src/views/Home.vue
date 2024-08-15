@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <Drawer />
-  <v-main class="pl-0">
+  <v-main class="pl-0" id="home-section">
     <v-parallax class="align-center" height="690">
       <div class="d-flex flex-column w-50 text-center align-center ma-auto pt-12">
         <h3 class="text-h3 font-weight-black">{{ texts[0].value }}</h3>
