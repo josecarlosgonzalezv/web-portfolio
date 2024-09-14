@@ -3,7 +3,7 @@ import { WebState } from '@/store/types';
 
 export const useWebStore = defineStore('WebStore', {
   state: (): WebState => ({
-    theme: 'light',
+    theme: 'dark',
   }),
 
   actions: {

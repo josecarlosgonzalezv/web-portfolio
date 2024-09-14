@@ -20,7 +20,5 @@ import { initStore } from '@/store/utils';
 
 const store = ref<Store>({} as Store);
 
-onBeforeMount(() => {
-  initStore(store);
-});
+onBeforeMount(() => initStore(store));
 </script>
