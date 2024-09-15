@@ -41,11 +41,13 @@ const handleScroll = () => {
   });
 };
 
-const scrollTo = (section: string) => {
+const scrollTo = (section: string, offset = -100) => {
   const element = document.getElementById(section);
 
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    const y = element.getBoundingClientRect().top + window.scrollY + offset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 };
 

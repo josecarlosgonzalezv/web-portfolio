@@ -1,9 +1,8 @@
 <template>
-  <v-parallax id="about-section" class="align-center">
+  <v-parallax class="align-center">
     <div class="d-flex flex-column w-100 text-center align-center ma-auto pt-12">
       <h3 class="text-h3 font-weight-black">ABOUT ME</h3>
       <CustomDivider class="mt-4" />
-      <v-divider color="info"></v-divider>
       <p class="w-50 mt-4">
         Here you will find more information about me, what I do, and my current skills mostly in terms of programming
         and technology.
