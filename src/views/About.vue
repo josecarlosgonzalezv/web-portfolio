@@ -16,9 +16,7 @@
           </p>
           <p class="mt-4">
             My main focus these days is building a component library in <strong>LUMEN</strong>:
-            <a href="https://lib.lumen.com/chi/latest/getting-started/"
-              >https://lib.lumen.com/chi/latest/getting-started/</a
-            >
+            <a href="https://lib.lumen.com/chi/latest/getting-started/">Chi Design system</a>
           </p>
           <p class="mt-4">
             I like to build software in the sweet spot where design and engineering meet - things that look good but are
@@ -32,7 +30,6 @@
             When I'm not in front of the computer, I'm usually playing sports, reading, hanging out with friends, or
             running around Hyrule looking for Korok's seeds.
           </p>
-          <v-btn color="primary" class="mt-6 w-100">Contact me</v-btn>
         </div>
         <div class="w-75 w-md-50 pa-10 ml-12 ml-md-0">
           <h2>Technologies</h2>
