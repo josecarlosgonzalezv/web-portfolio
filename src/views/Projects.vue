@@ -9,7 +9,7 @@
         career as a web developer.
       </p>
       <v-row class="mt-4 w-100 w-md-75 flex-column flex-md-row" no-gutters>
-        <v-col v-for="(project, idx) in projects" :key="idx" align-self="center" cols="8" sm="9" md="6" class="pa-6">
+        <v-col v-for="(project, idx) in projects" :key="idx" align-self="center" cols="9" sm="9" md="6" class="pa-6">
           <ProjectCard
             :title="project.title"
             :subtitle="project.subtitle"
