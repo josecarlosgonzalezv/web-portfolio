@@ -33,7 +33,7 @@
         </div>
         <div class="w-75 w-md-50 pa-10 ml-12 ml-md-0">
           <h2>Technologies</h2>
-          <v-chip class="chip mt-4 ma-3" v-for="(tech, idx) in techs" :key="idx">{{ tech }}</v-chip>
+          <v-chip v-for="(tech, idx) in techs" :key="idx" class="chip mt-4 ma-3">{{ tech }}</v-chip>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <v-app-bar :elevation="4">
     <v-tabs v-model="activeTab" align-tabs="center" grow>
-      <v-tab v-for="(tab, idx) in tabs" :value="tab.value" :key="idx" @click="scrollTo(tab.elementId)">{{
+      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="scrollTo(tab.elementId)">{{
         tab.name
       }}</v-tab>
     </v-tabs>
