@@ -26,15 +26,15 @@
             @input="v$.email.$touch"
           ></v-text-field>
           <v-textarea
-            class="mt-4"
             v-model="state.message"
+            class="mt-4"
             :error-messages="setErrorMessage('message')"
             label="Message"
             required
             @blur="v$.message.$touch"
             @input="v$.message.$touch"
           ></v-textarea>
-          <v-btn class="w-100 mt-4" @click="submitForm" :disabled="v$.$invalid">Submit</v-btn>
+          <v-btn class="w-100 mt-4" :disabled="v$.$invalid" @click="submitForm">Submit</v-btn>
         </v-form>
       </v-sheet>
     </div>

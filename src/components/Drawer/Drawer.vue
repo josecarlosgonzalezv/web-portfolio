@@ -3,9 +3,9 @@
     <v-list density="compact" nav>
       <v-list-item
         v-for="(media, idx) in medias"
+        :key="idx"
         :prepend-icon="`mdi-${media}`"
         :value="media"
-        :key="idx"
         @click="redirect(media)"
       ></v-list-item>
     </v-list>
