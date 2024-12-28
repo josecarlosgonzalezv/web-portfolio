@@ -1,19 +1,19 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-// import { checker } from 'vite-plugin-checker';
+import { checker } from 'vite-plugin-checker';
 
 export default defineConfig({
   plugins: [
     vue(),
-    // checker({
-    //   typescript: {
-    //     tsconfigPath: './tsconfig.json',
-    //   },
-    //   vueTsc: {
-    //     tsconfigPath: './tsconfig.json',
-    //   },
-    // }),
+    checker({
+      typescript: {
+        tsconfigPath: './tsconfig.json',
+      },
+      vueTsc: {
+        tsconfigPath: './tsconfig.json',
+      },
+    }),
   ],
   resolve: {
     alias: {
@@ -26,6 +26,7 @@ export default defineConfig({
     minify: true,
     sourcemap: true,
     copyPublicDir: false,
+    chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[name][extname]',
