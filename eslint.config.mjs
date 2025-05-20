@@ -15,7 +15,7 @@ const compat = new FlatCompat({
 
 export default [
   ...pluginVue.configs['flat/recommended'],
-  ...compat.extends('plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:prettier/recommended'),
+  ...compat.extends('eslint:recommended', 'plugin:prettier/recommended'),
   {
     languageOptions: {
       parser: vueParser,
