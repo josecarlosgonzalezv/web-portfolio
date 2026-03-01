@@ -1,65 +1,103 @@
 <template>
   <v-app-bar :elevation="4">
-    <v-tabs v-model="activeTab" align-tabs="center" grow>
-      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="scrollTo(tab.elementId)">{{
+    <template v-if="smAndDown">
+      <v-menu
+        v-model="mobileMenuOpen"
+        :close-on-content-click="true"
+        location="bottom"
+        transition="slide-y-transition"
+        @update:model-value="onMobileMenuClose"
+      >
+        <template #activator="{ props: menuProps }">
+          <v-app-bar-nav-icon ref="menuActivatorRef" v-bind="menuProps" class="mr-2" aria-label="Open menu" />
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(tab, idx) in tabs"
+            :key="idx"
+            :active="activeTab === tab.value"
+            class="min-touch"
+            @click="navigate(tab)"
+          >
+            <v-list-item-title>{{ tab.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </template>
+    <v-tabs v-else :model-value="activeTab" align-tabs="center" grow class="flex-grow-1">
+      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="navigate(tab)">{{
         tab.name
       }}</v-tab>
     </v-tabs>
-    <ThemeSelector class="mr-4" />
+    <MusicPlayer class="mr-1 flex-shrink-0" />
+    <ThemeSelector class="mr-2 flex-shrink-0" />
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
+import { nextTick, inject, ref, computed } from 'vue';
+import { useDisplay } from 'vuetify';
 import ThemeSelector from '@/components/ThemeSelector/ThemeSelector.vue';
-import { Store } from '@/store';
-import { initStore } from '@/store/utils';
-import { useRouter } from 'vue-router';
+import MusicPlayer from '@/components/MusicPlayer/MusicPlayer.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { scrollToSection, getActiveSectionId, SECTION_TABS, SECTION_IDS } from '@/composables/useSectionScroll';
+import { useScrollThrottle } from '@/composables/useScrollThrottle';
 
-const store = ref<Store>({} as Store);
-const tabs = ref([
-  { name: 'Home', value: 'home', route: '/home', elementId: 'home-section' },
-  { name: 'About me', value: 'about', route: '/about', elementId: 'about-section' },
-  { name: 'Projects', value: 'projects', route: '/projects', elementId: 'projects-section' },
-  { name: 'Contact', value: 'contact', route: '/contact', elementId: 'contact-section' },
-]);
+const { smAndDown } = useDisplay();
+const tabs = SECTION_TABS;
+const route = useRoute();
 const router = useRouter();
-const activeTab = ref(0);
+const mobileMenuOpen = ref(false);
+const menuActivatorRef = ref<{ $el?: HTMLElement } | null>(null);
+const isScrollingProgrammatically = inject<{ value: boolean }>('programmaticScroll') ?? ref(false);
 
-const handleScroll = () => {
-  tabs.value.forEach((tab, idx) => {
-    const section = document.getElementById(tab.elementId);
+const activeTab = computed(() => {
+  const normalized = route.path.replace(/\/$/, '') || '/';
+  
+  return SECTION_TABS.find((t) => t.route.replace(/\/$/, '') === normalized)?.value ?? 'home';
+});
 
-    if (section) {
-      const rect = section.getBoundingClientRect();
-
-      if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-        router.push(tab.route);
-        activeTab.value = idx;
-      }
-    }
-  });
-};
-
-const scrollTo = (section: string, offset = -100) => {
-  const element = document.getElementById(section);
-
-  if (element) {
-    const y = element.getBoundingClientRect().top + window.scrollY + offset;
-
-    window.scrollTo({ top: y, behavior: 'smooth' });
+const onMobileMenuClose = (open: boolean) => {
+  if (!open) {
+    nextTick(() => {
+      const el = menuActivatorRef.value?.$el;
+      
+      if (el && typeof el.focus === 'function') (el as HTMLElement).focus();
+    });
   }
 };
 
-onBeforeMount(() => {
-  initStore(store);
-});
+function navigate(tab: (typeof SECTION_TABS)[0]) {
+  isScrollingProgrammatically.value = true;
+  router.replace(tab.route);
+  scrollToSection(tab.elementId);
+  mobileMenuOpen.value = false;
+  releaseAfterScroll();
+}
 
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
+function releaseAfterScroll() {
+  const release = () => {
+    isScrollingProgrammatically.value = false;
+    window.removeEventListener('scrollend', release);
+  };
+  
+  window.addEventListener('scrollend', release, { once: true });
+  window.setTimeout(release, 1500);
+}
 
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+const onScroll = () => {
+  if (isScrollingProgrammatically.value) return;
+  
+  const activeId = getActiveSectionId(SECTION_IDS);
+  
+  if (!activeId) return;
+  
+  const tab = SECTION_TABS.find((t) => t.elementId === activeId);
+  
+  if (tab && tab.value !== activeTab.value) router.replace(tab.route);
+};
+
+useScrollThrottle(onScroll);
 </script>
+
+<style scoped lang="scss" src="./NavBar.scss"></style>

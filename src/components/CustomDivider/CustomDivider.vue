@@ -8,7 +8,7 @@
 .divider {
   margin: 0.5rem;
   border-radius: 1rem;
-  background-color: rgb(33, 150, 243);
+  background-color: rgb(var(--v-theme-primary));
   width: 12.5rem;
   height: 0.75rem;
 }

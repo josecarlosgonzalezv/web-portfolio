@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.skills-grid {
+  @include centered-block($max-width-skills);
+}
+
+.skills-card {
+  min-height: $skills-card-min-height;
+}
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $skills-chip-gap;
+  margin-top: 4px;
+}
+
+.skills-chip {
+  font-size: $skills-chip-font-size;
+}

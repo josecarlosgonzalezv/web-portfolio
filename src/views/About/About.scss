@@ -1,0 +1,8 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.about-content {
+  @include centered-block($max-width-about);
+  margin-top: $gap-xl;
+  padding: 0 $gap-md;
+}

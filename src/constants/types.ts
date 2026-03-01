@@ -5,3 +5,14 @@ export type Project = {
   link?: string;
   img?: string;
 };
+
+export type SocialLink = {
+  id: string;
+  icon: string;
+  url: string;
+};
+
+export type SkillsCategory = {
+  title: string;
+  skills: string[];
+};

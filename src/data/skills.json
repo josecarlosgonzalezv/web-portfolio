@@ -1,0 +1,13 @@
+{
+  "skillsCategories": [
+    {
+      "title": "Frontend",
+      "skills": ["JavaScript (ES6+)", "TypeScript", "Vue 3", "Nuxt 4", "StencilJS", "HTML5", "SCSS"]
+    },
+    { "title": "Testing", "skills": ["Cypress", "Playwright", "BackstopJS", "Vitest"] },
+    { "title": "DevOps & CI/CD", "skills": ["Jenkins", "GitHub Actions", "Kubernetes", "AWS"] },
+    { "title": "AI & Automation", "skills": ["GitHub Copilot", "Cursor", "MCP", "AI Workflows"] },
+    { "title": "Tools & Leadership", "skills": ["Git/GitHub", "Agile", "Figma", "UXPin"] },
+    { "title": "Game Dev", "skills": ["Unity", "C#"] }
+  ]
+}

@@ -1,0 +1,69 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+:deep(.resume-layout .section-layout__inner) {
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding-inline: $gap-md;
+}
+
+:deep(.resume-layout .section-layout__title) {
+  width: 100%;
+  text-align: left;
+}
+
+:deep(.resume-layout .divider) {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.resume-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-lg;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: $max-width-resume;
+  padding: 0 0 2rem;
+}
+
+.resume-intro,
+.resume-footer {
+  width: 100%;
+  max-width: $max-width-resume;
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.resume-intro {
+  text-align: center;
+}
+
+.resume-footer {
+  text-align: center;
+}
+
+.resume-card {
+  flex: 1 1 $resume-card-min-width;
+  max-width: $resume-card-max-width;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.resume-card__header {
+  width: 100%;
+}
+
+.resume-card__description {
+  flex-grow: 1;
+  width: 100%;
+  text-align: left;
+}
+
+.resume-card :deep(.v-btn) {
+  align-self: flex-start;
+}

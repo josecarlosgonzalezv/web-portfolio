@@ -1,0 +1,8 @@
+@use 'variables' as *;
+
+@mixin centered-block($max-width) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}

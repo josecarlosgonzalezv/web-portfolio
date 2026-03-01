@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Rosa Runner Adventure",
+    "subtitle": "Infinity loop 2D game",
+    "description": "Game made during the master's degree in videogame development and design at EVAD. The game was made in 2D using unity as graphic engine and C# as programming language.",
+    "link": "https://www.youtube.com/embed/9mx98O4Z0Kg?si=1MObGV-F24w0vAl0"
+  },
+  {
+    "title": "Tank Zombie Survivor",
+    "subtitle": "3D Wave round game",
+    "description": "Game made during the master's degree in videogame development and design at EVAD. The game was made in 3D using unity as graphic engine and C# as programming language.",
+    "link": "https://www.youtube.com/embed/aiUev93ZPSw?si=iK96kHnhFrE2L6sq"
+  },
+  {
+    "title": "Global Game Jam 2023",
+    "subtitle": "Game made for a Game Jam at EVAD",
+    "description": "Game made for an EVAD Game Jam with the theme: roots. The game was made in 2D using unity as graphic engine and C# as programming language.",
+    "link": "https://www.youtube.com/embed/Pyl5GnafSHY?si=iEOvK6qdBdIY_xDS"
+  },
+  {
+    "title": "Realms Untold",
+    "subtitle": "3D Turn-based RPG game",
+    "description": "Game made as a final project for EVAD's master's degree in development and design. The game was made in 3D using unity as graphic engine and C# as programming language.",
+    "link": "https://www.youtube.com/embed/qYsi35bjkiQ?si=sMRm6BSf1TG4TM3J"
+  },
+  {
+    "title": "Chi Design System",
+    "subtitle": "https://lib.lumen.com/chi/latest",
+    "description": "Design system for building digital products and experiences. This library supports Stencil-based web components and Vue components.",
+    "img": "chi.png"
+  }
+]
