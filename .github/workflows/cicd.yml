@@ -1,5 +1,7 @@
 name: Portfolio CI/CD
 run-name: CI/CD
+permissions:
+  contents: write
 
 on:
   push:
