@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.contact-intro {
+  @include centered-block($max-width-contact-intro);
+}
+
+.contact-form {
+  max-width: $max-width-contact-form;
+  border-radius: 0.5rem;
+}
+
+:deep(.contact-submit-btn.v-btn--disabled) {
+  opacity: 0.6;
+  filter: saturate(70%);
+}

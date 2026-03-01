@@ -1,32 +1,35 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import globals from 'globals';
 import pluginVue from 'eslint-plugin-vue';
 import tsParser from '@typescript-eslint/parser';
 import vueParser from 'vue-eslint-parser';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: pluginVue.configs.recommended,
-  allConfig: pluginVue.configs.all,
-});
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 export default [
+  js.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
-  ...compat.extends('eslint:recommended', 'plugin:prettier/recommended'),
+  prettierConfig,
   {
+    plugins: {
+      prettier: prettierPlugin,
+    },
     languageOptions: {
       parser: vueParser,
-      parserOptions: { 
-        parser: tsParser
+      parserOptions: {
+        parser: tsParser,
+        project: './tsconfig.json',
+        extraFileExtensions: ['.vue'],
       },
       ecmaVersion: 2022,
+      globals: {
+        ...globals.browser,
+        ...globals.es2022,
+      },
     },
     rules: {
       'no-console': 'off',
-      'no-debugger': 'off',
+      'no-debugger': 'warn',
       'prettier/prettier': [
         'error',
         {

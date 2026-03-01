@@ -1,0 +1,5 @@
+@use '../../styles/variables' as *;
+
+.min-touch {
+  min-height: $touch-target-size;
+}

@@ -1,21 +1,19 @@
 <template>
-  <v-btn :icon="setThemeIcon()" @click="handlerClick"></v-btn>
+  <v-btn :icon="themeIcon" aria-label="Toggle light/dark theme" @click="onToggleTheme" />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
-import { Store } from '@/store';
-import { initStore, updateThemeStore } from '@/store/utils';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useWebStore } from '@/store';
 
-const store = ref<Store>({} as Store);
+const store = useWebStore();
+const { theme } = storeToRefs(store);
+const themeIcon = computed(() => (theme.value === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'));
 
-const setThemeIcon = () => (store.value.theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night');
+const onToggleTheme = () => {
+  const newTheme = theme.value === 'light' ? 'dark' : 'light';
 
-const handlerClick = () => {
-  const newTheme = store.value.theme === 'light' ? 'dark' : 'light';
-
-  updateThemeStore(store.value, newTheme);
+  store.updateTheme(newTheme);
 };
-
-onBeforeMount(() => initStore(store));
 </script>

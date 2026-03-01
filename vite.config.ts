@@ -1,11 +1,13 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vuetify from 'vite-plugin-vuetify';
 import { checker } from 'vite-plugin-checker';
 
 export default defineConfig({
   plugins: [
     vue(),
+    vuetify({ autoImport: true }),
     checker({
       typescript: {
         tsconfigPath: './tsconfig.json',
@@ -24,17 +26,19 @@ export default defineConfig({
   build: {
     target: 'esnext',
     minify: true,
-    sourcemap: true,
-    copyPublicDir: false,
+    sourcemap: false,
+    copyPublicDir: true,
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
-        assetFileNames: 'assets/[name][extname]',
-        chunkFileNames: 'chunks/[name][extname]',
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'chunks/[name]-[hash].js',
+        manualChunks: {
+          vue: ['vue', 'vue-router', 'pinia'],
+          vuetify: ['vuetify'],
+          motion: ['@vueuse/motion'],
+        },
       },
     },
-  },
-  define: {
-    'import.meta.env.MODE': '"production"',
   },
 });

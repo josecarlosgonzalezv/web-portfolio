@@ -1,31 +1,28 @@
 <template>
-  <v-navigation-drawer border class="mt-drawer" sticky rail permanent :elevation="4">
+  <v-navigation-drawer v-if="display.mdAndUp" border class="mt-drawer" sticky rail permanent :elevation="4">
     <v-list density="compact" nav>
       <v-list-item
-        v-for="(media, idx) in medias"
+        v-for="(item, idx) in socialLinks"
         :key="idx"
-        :prepend-icon="`mdi-${media}`"
-        :value="media"
-        @click="redirect(media)"
-      ></v-list-item>
+        :prepend-icon="`mdi-${item.icon}`"
+        :value="item.id"
+        :aria-label="`Open ${item.id} in new tab`"
+        @click="openLink(item.url)"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-const medias = ['linkedin', 'github'];
+import { useDisplay } from 'vuetify';
+import { useSocialLinks } from '@/composables/useSocialLinks';
 
-const redirect = (value: string) => {
-  const urls: { [key: string]: string } = {
-    linkedin: 'https://www.linkedin.com/in/josegnzl/',
-    github: 'https://github.com/josecarlosgonzalezv',
-  };
+const socialLinks = useSocialLinks();
+const display = useDisplay();
 
-  window.open(urls[value], '_blank');
+const openLink = (url: string) => {
+  window.open(url, '_blank');
 };
 </script>
-<style scoped>
-.mt-drawer {
-  margin-top: 15rem;
-}
-</style>
+
+<style scoped lang="scss" src="./Drawer.scss"></style>

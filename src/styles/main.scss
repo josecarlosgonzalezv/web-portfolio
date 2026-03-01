@@ -1,0 +1,44 @@
+.v-application {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.v-application h1,
+.v-application h2,
+.v-application h3,
+.v-application h4,
+.v-application h5,
+.v-application h6,
+.text-h1, .text-h2, .text-h3,
+.text-h4, .text-h5, .text-h6 {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.v-tab,
+.v-btn {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.v-chip {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-weight: 500;
+}
+
+.v-card-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}

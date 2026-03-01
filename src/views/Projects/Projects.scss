@@ -1,0 +1,7 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.projects-row {
+  @include centered-block($max-width-projects);
+  flex-wrap: wrap;
+}
