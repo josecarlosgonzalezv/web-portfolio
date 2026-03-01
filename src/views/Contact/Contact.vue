@@ -6,7 +6,8 @@
     <v-sheet class="contact-form mx-auto mt-8 pa-6 pa-md-8 w-100">
       <v-alert v-if="submitted" type="success" variant="tonal" class="mb-6" closable>
         Thank you. Your email client should open — if it doesn't, you can reach me at
-        <a :href="`mailto:${contactEmail}`">{{ contactEmail }}</a>.
+        <a :href="`mailto:${contactEmail}`">{{ contactEmail }}</a
+        >.
       </v-alert>
       <v-form v-else @submit.prevent>
         <v-text-field
@@ -94,7 +95,7 @@ const submitForm = async () => {
 
   if (isValid) {
     submitting.value = true;
-    
+
     const subject = encodeURIComponent(`[Portfolio contact form]: ${state.name}`);
     const body = encodeURIComponent(`Name: ${state.name}\nEmail: ${state.email}\nMessage: ${state.message}`);
     const mailtoLink = `mailto:${contactEmail}?subject=${subject}&body=${body}`;

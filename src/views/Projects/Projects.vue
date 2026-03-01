@@ -41,9 +41,7 @@ import type { Project } from '@/constants/types';
 import projectsJson from '@/data/projects.json';
 
 const projectsData: Project[] = Array.isArray(projectsJson)
-  ? (projectsJson as Project[]).map((p) =>
-      p.img ? { ...p, img: `${import.meta.env.BASE_URL}${p.img}` } : p,
-    )
+  ? (projectsJson as Project[]).map((p) => (p.img ? { ...p, img: `${import.meta.env.BASE_URL}${p.img}` } : p))
   : [];
 </script>
 

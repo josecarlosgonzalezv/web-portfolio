@@ -18,6 +18,8 @@ export default [
       parser: vueParser,
       parserOptions: {
         parser: tsParser,
+        project: './tsconfig.json',
+        extraFileExtensions: ['.vue'],
       },
       ecmaVersion: 2022,
       globals: {

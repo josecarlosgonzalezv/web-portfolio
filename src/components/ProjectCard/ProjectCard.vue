@@ -64,30 +64,30 @@ const props = defineProps<Project>();
 
 const extractYoutubeId = (url?: string): string | null => {
   if (!url) return null;
-  
+
   const embedMatch = url.match(/youtube\.com\/embed\/([^?&/]+)/i);
-  
+
   if (embedMatch?.[1]) return embedMatch[1];
-  
+
   const shortMatch = url.match(/youtu\.be\/([^?&/]+)/i);
-  
+
   if (shortMatch?.[1]) return shortMatch[1];
-  
+
   return null;
 };
 
 const youtubeId = computed(() => extractYoutubeId(props.link));
 const hasYoutubeFacade = computed(() => Boolean(youtubeId.value));
 const youtubeThumbnailUrl = computed(() =>
-  youtubeId.value ? `https://img.youtube.com/vi/${youtubeId.value}/hqdefault.jpg` : '',
+  youtubeId.value ? `https://img.youtube.com/vi/${youtubeId.value}/hqdefault.jpg` : ''
 );
 const embedUrl = computed(() => {
   if (!props.link) return '';
   if (!hasYoutubeFacade.value) return props.link;
   if (!isVideoLoaded.value) return '';
- 
+
   const separator = props.link.includes('?') ? '&' : '?';
-  
+
   return `${props.link}${separator}autoplay=1`;
 });
 </script>

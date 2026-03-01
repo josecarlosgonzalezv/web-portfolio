@@ -9,8 +9,8 @@
     "deploy": "gh-pages -d dist",
     "lint": "eslint \"src/**/*.{ts,tsx,vue}\" --fix",
     "lint:checker": "eslint \"src/**/*.{ts,tsx,vue}\"",
-    "prettier": "prettier './{src/**/*(*.ts|*.vue),*.js}' --write",
-    "prettier:checker": "prettier './{src/**/*(*.ts|*.vue),*.js}' --check"
+    "prettier": "prettier \"src/**/*.{ts,vue,js}\" --write",
+    "prettier:checker": "prettier \"src/**/*.{ts,vue,js}\" --check"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"

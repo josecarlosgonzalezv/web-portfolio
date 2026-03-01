@@ -25,9 +25,7 @@
       </v-menu>
     </template>
     <v-tabs v-else :model-value="activeTab" align-tabs="center" grow class="flex-grow-1">
-      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="navigate(tab)">{{
-        tab.name
-      }}</v-tab>
+      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="navigate(tab)">{{ tab.name }}</v-tab>
     </v-tabs>
     <MusicPlayer class="mr-1 flex-shrink-0" />
     <ThemeSelector class="mr-2 flex-shrink-0" />
@@ -53,7 +51,7 @@ const isScrollingProgrammatically = inject<{ value: boolean }>('programmaticScro
 
 const activeTab = computed(() => {
   const normalized = route.path.replace(/\/$/, '') || '/';
-  
+
   return SECTION_TABS.find((t) => t.route.replace(/\/$/, '') === normalized)?.value ?? 'home';
 });
 
@@ -61,7 +59,7 @@ const onMobileMenuClose = (open: boolean) => {
   if (!open) {
     nextTick(() => {
       const el = menuActivatorRef.value?.$el;
-      
+
       if (el && typeof el.focus === 'function') (el as HTMLElement).focus();
     });
   }
@@ -80,20 +78,20 @@ function releaseAfterScroll() {
     isScrollingProgrammatically.value = false;
     window.removeEventListener('scrollend', release);
   };
-  
+
   window.addEventListener('scrollend', release, { once: true });
   window.setTimeout(release, 1500);
 }
 
 const onScroll = () => {
   if (isScrollingProgrammatically.value) return;
-  
+
   const activeId = getActiveSectionId(SECTION_IDS);
-  
+
   if (!activeId) return;
-  
+
   const tab = SECTION_TABS.find((t) => t.elementId === activeId);
-  
+
   if (tab && tab.value !== activeTab.value) router.replace(tab.route);
 };
 
