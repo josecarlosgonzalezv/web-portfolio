@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://josecarlosgonzalezv.github.io/web-portfolio/sitemap.xml
