@@ -13,7 +13,9 @@
         >
           <div class="d-flex align-center mb-4">
             <v-icon :icon="categoryIcon(category.title)" size="28" class="mr-3" color="primary" />
-            <h3 class="text-h6 font-weight-bold mb-0">{{ category.title }}</h3>
+            <h3 class="text-h6 font-weight-bold mb-0">
+              {{ category.title }}
+            </h3>
           </div>
           <div class="chips-container">
             <v-chip

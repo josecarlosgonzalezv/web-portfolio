@@ -2,6 +2,7 @@
   "include": ["src/env.d.ts", "src/**/*", "src/**/*.json", "src/**/*.vue"],
   "compilerOptions": {
     "composite": true,
+    "ignoreDeprecations": "6.0",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,

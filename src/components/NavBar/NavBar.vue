@@ -25,7 +25,9 @@
       </v-menu>
     </template>
     <v-tabs v-else :model-value="activeTab" align-tabs="center" grow class="flex-grow-1">
-      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="navigate(tab)">{{ tab.name }}</v-tab>
+      <v-tab v-for="(tab, idx) in tabs" :key="idx" :value="tab.value" @click="navigate(tab)">
+        {{ tab.name }}
+      </v-tab>
     </v-tabs>
     <MusicPlayer class="mr-1 flex-shrink-0" />
     <ThemeSelector class="mr-2 flex-shrink-0" />
