@@ -33,10 +33,16 @@ export default defineConfig({
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'chunks/[name]-[hash].js',
-        manualChunks: {
-          vue: ['vue', 'vue-router', 'pinia'],
-          vuetify: ['vuetify'],
-          motion: ['@vueuse/motion'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('vuetify')) return 'vuetify';
+            if (id.includes('@vueuse/motion')) return 'motion';
+            if (id.includes('vue') || id.includes('vue-router') || id.includes('pinia')) {
+              return 'vue';
+            }
+          }
+
+          return undefined;
         },
       },
     },

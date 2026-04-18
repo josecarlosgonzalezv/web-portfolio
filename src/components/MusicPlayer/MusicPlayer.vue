@@ -9,7 +9,9 @@
     />
     <transition name="fade-slide">
       <div v-if="showVolume" class="music-player__volume-panel">
-        <v-icon size="14" class="music-player__vol-icon">{{ volumeIcon }}</v-icon>
+        <v-icon size="14" class="music-player__vol-icon">
+          {{ volumeIcon }}
+        </v-icon>
         <v-slider
           :model-value="volume"
           min="0"

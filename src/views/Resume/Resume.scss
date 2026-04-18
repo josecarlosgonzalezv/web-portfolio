@@ -67,3 +67,15 @@
 .resume-card :deep(.v-btn) {
   align-self: flex-start;
 }
+
+@media (max-width: 600px) {
+  .resume-cards {
+    gap: $gap-md;
+  }
+
+  .resume-card {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+}
