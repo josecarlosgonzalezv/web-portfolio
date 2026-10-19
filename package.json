@@ -39,7 +39,7 @@
     "pinia": "^4.0.2",
     "prettier": "^3.9.6",
     "sass": "^1.101.3",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vite": "^8.1.5",
     "vite-plugin-checker": "^0.14.4",
     "vite-plugin-vuetify": "^2.1.3",
